@@ -5,5 +5,5 @@ Aplicativo para adição de notas
 
 ```
 npm install
-npm run
+npm init
 ```
