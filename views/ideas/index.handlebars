@@ -3,7 +3,7 @@
 <div class="card card-body mb-2">
   <h4>{{title}}</h4>
   <p>{{details}}</p>
-  <a href="/ideas/edit/{{id}}" class="btn btn-dark btn-block mb-2">Edit</a>
+  <a href="/ideas/edit/{{id}}" class="btn btn-dark btn-block mb-2">Editar</a>
   <form action="/ideas/{{id}}?_method=DELETE" method="post">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn btn-danger btn-block" value="Delete">
@@ -11,5 +11,5 @@
 </div>
 
 {{else}}
-<p>No video ideas listed</p>
+<p>Nenhuma ideia registrada</p>
 {{/each}}

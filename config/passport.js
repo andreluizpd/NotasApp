@@ -13,7 +13,7 @@ module.exports = function(passport) {
         email: email
       }).then(user => {
         if (!user) {
-          return done(null, false, { message: "no user found" });
+          return done(null, false, { message: "Usuario nao encontrado" });
         }
 
         // Match password
@@ -23,7 +23,7 @@ module.exports = function(passport) {
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: "invalid password" });
+            return done(null, false, { message: "Senha invalida" });
           }
         });
       });

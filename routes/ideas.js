@@ -16,7 +16,7 @@ router.get("/edit/:id", ensureAuthentication, (req, res) => {
     _id: req.params.id
   }).then(idea => {
     if (idea.user != req.user.id) {
-      req.flash("error_msg", "Not Autorized");
+      req.flash("error_msg", "Acesso nao Autorizado");
       res.redirect("/ideas");
     } else {
       res.render("ideas/edit", { idea });
@@ -36,10 +36,10 @@ router.post("/", ensureAuthentication, (req, res) => {
   let errors = [];
 
   if (!req.body.title) {
-    errors.push({ text: "Please add a title" });
+    errors.push({ text: "Adicione um titulo" });
   }
   if (!req.body.details) {
-    errors.push({ text: "Please add some details" });
+    errors.push({ text: "Adicione os detalhes" });
   }
 
   if (errors.length > 0) {
@@ -55,7 +55,7 @@ router.post("/", ensureAuthentication, (req, res) => {
       user: req.user.id
     };
     new Idea(newUser).save().then(ideas => {
-      req.flash("success_msg", "Video Idea Added");
+      req.flash("success_msg", "Ideia Adicionada");
       res.redirect("/ideas");
     });
   }
@@ -70,19 +70,19 @@ router.put("/:id", ensureAuthentication, (req, res) => {
     idea.details = req.body.details;
 
     idea.save().then(idea => {
-      req.flash("success_msg", "Video Idea updated");
+      req.flash("success_msg", "Ideia Atualizada");
       res.redirect("/ideas");
     });
   });
 });
 
 router.delete("/:id", ensureAuthentication, (req, res) => {
-  // Idea.remove({
-  //   _id: req.params.id
-  // }).then(() => {
-  //   req.flash("success_msg", "Video Idea Removed");
-  //   res.redirect("/ideas");
-  // });
+  Idea.remove({
+    _id: req.params.id
+  }).then(() => {
+    req.flash("success_msg", "Ideia Removida");
+    res.redirect("/ideas");
+  });
 });
 
 module.exports = router;
