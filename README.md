@@ -1,4 +1,5 @@
 # NotasApp
+
 Aplicativo para adição de notas
 
 ## Como usar
@@ -7,8 +8,11 @@ Aplicativo para adição de notas
 npm install
 npm start
 ```
+
 ## TODO
-- Adicionar captcha
-- Ideas com senha
+
+- Adicionar captcha: (exemplo)[https://www.youtube.com/watch?v=UzCkSzmEq8E]
+- Senha para remover ideia
 - Autenticação no MongoDB
 - Refatorar se possivel
+- Limite de tentativas para login
