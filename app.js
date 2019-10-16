@@ -74,7 +74,7 @@ app.use(methodOverride("_method"));
 
 // Index route
 app.get("/", (req, res) => {
-  const title = "welcome";
+  const title = "Bem Vindo";
   res.render("index", {
     title: title
   });
