@@ -7,12 +7,10 @@ const { ensureAuthentication } = require("../helpers/auth");
 require("../models/Idea");
 const Idea = mongoose.model("ideas");
 
-// Add idea form
 router.get("/add", ensureAuthentication, (req, res) => {
   res.render("ideas/add");
 });
 
-// Edit idea form
 router.get("/edit/:id", ensureAuthentication, (req, res) => {
   Idea.findOne({
     _id: req.params.id
@@ -26,7 +24,6 @@ router.get("/edit/:id", ensureAuthentication, (req, res) => {
   });
 });
 
-// Idea index page
 router.get("/", ensureAuthentication, (req, res) => {
   Idea.find({ user: req.user.id })
     .sort({ date: "desc" })
@@ -35,7 +32,6 @@ router.get("/", ensureAuthentication, (req, res) => {
     });
 });
 
-// Process form
 router.post("/", ensureAuthentication, (req, res) => {
   let errors = [];
 
@@ -65,7 +61,6 @@ router.post("/", ensureAuthentication, (req, res) => {
   }
 });
 
-// Edit form Process
 router.put("/:id", ensureAuthentication, (req, res) => {
   Idea.findOne({
     _id: req.params.id
@@ -81,7 +76,6 @@ router.put("/:id", ensureAuthentication, (req, res) => {
   });
 });
 
-// Delete idea
 router.delete("/:id", ensureAuthentication, (req, res) => {
   Idea.remove({
     _id: req.params.id
