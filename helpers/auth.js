@@ -3,7 +3,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash("error_msg", "Not authorized");
+    req.flash("error_msg", "Acesso nao autorizado");
     res.redirect("/users/login");
   }
 };

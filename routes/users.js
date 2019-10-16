@@ -32,11 +32,11 @@ router.post("/register", (req, res) => {
   let errors = [];
 
   if (req.body.password != req.body.password2) {
-    errors.push({ text: "Passwords do not match" });
+    errors.push({ text: "Senhas nao conferem" });
   }
 
   if (req.body.password.length < 4) {
-    errors.push({ text: "Passwords must be at least 4 charachters" });
+    errors.push({ text: "A senha precisa ter no minimo 4 caracteres" });
   }
 
   if (errors.length > 0) {
@@ -48,7 +48,7 @@ router.post("/register", (req, res) => {
   } else {
     User.findOne({ email: req.body.email }).then(user => {
       if (user) {
-        req.flash("error_msg", "Email alredy registered");
+        req.flash("error_msg", "Email ja registrado");
         res.redirect("/users/register");
       } else {
         const newUser = new User({
@@ -66,7 +66,7 @@ router.post("/register", (req, res) => {
               .then(user => {
                 req.flash(
                   "success_msg",
-                  "You are now registered and now can log in"
+                  "Registrado com sucesso, agora ja pode fazer login"
                 );
                 res.redirect("/users/login");
               })
@@ -84,7 +84,7 @@ router.post("/register", (req, res) => {
 // logout user
 router.get("/logout", (req, res) => {
   req.logOut();
-  req.flash("success_msg", "You are logout");
+  req.flash("success_msg", "Logout realizado com sucesso");
   res.redirect("/users/login");
 });
 
