@@ -28,13 +28,21 @@ app.use(helmet.contentSecurityPolicy({
 
 //Load rateLimit
 const apiLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 15 minutes
-  max: 10
+  windowMs: 2 * 60 * 1000, // 2 minutes
+  max: 10, //10 requisiçoes
+  message:
+    "Muitas requisiçoes na pagina tente novamente mais tarde!"
+});
+const loginLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 3, //3 tentativas
+  message:
+    "Excedeu as tentativas de login tente novamente em 5 minutos!"
 });
 app.use("/about/", apiLimiter);
 app.use("/index/", apiLimiter);
-app.use("/users/", apiLimiter);
-
+app.use("/users/register", apiLimiter);
+app.use("/users/login", loginLimiter);
 
 // Load routes
 const ideas = require("./routes/ideas");
