@@ -19,12 +19,12 @@ app.disable('x-powered-by')
 //Protege de invasores terem seu codigo desatualizado e com possiveis falhas mesmo apos corrigi-las
 app.use(helmet.noCache())
 //Content Filter do que pode ser carregado na pagina
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"],
-    styleSrc: ["'self'", 'cdnjs.cloudflare.com', 'code.jquery.com', 'stackpath.bootstrapcdn.com']
-  }
-}))
+// app.use(helmet.contentSecurityPolicy({
+//   directives: {
+//     defaultSrc: ["'self'"],
+//     styleSrc: ["'self'", 'cdnjs.cloudflare.com', 'code.jquery.com', 'stackpath.bootstrapcdn.com', 'www.google.com', 'www.gstatic.com']
+//   }
+// }))
 
 //Load rateLimit
 const apiLimiter = rateLimit({
