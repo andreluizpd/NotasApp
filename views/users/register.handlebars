@@ -3,7 +3,7 @@
     <div class="card card-body">
       <img src="/img/logo.png" alt="Logo" class="logo">
       <h3 class="text-center">Registrar conta</h3>
-      <form action="/users/register" method="POST">
+      <form class="register" action="/users/register" method="POST">
         <div class="form-group">
           <label for="name">Nome</label>
           <input type="text" value="{{ name }}" name="name" class="form-control" required>
@@ -20,8 +20,15 @@
           <label for="password2">Confirmar Senha</label>
           <input type="password" name="password2" class="form-control" required>
         </div>
+        <div class="form-group">
+          <div class="g-recaptcha" data-sitekey="6Ld40r0UAAAAAFbLzScXjZom46oB2io-9uyG_6fy"></div>
+        </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </form>
     </div>
   </div>
 </div>
+
+<script>
+  const recaptcha = document.querySelector("#g-recaptcha").value;
+</script>
