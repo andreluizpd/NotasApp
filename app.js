@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet")
 const path = require("path");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
@@ -7,8 +8,41 @@ const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
+
+// Load Helmet
+app.use(helmet())
+//Desativa Header X-Powered-by que identifica que a aplicação usa NodeJs ou Php
+app.disable('x-powered-by')
+//Protege de invasores terem seu codigo desatualizado e com possiveis falhas mesmo apos corrigi-las
+app.use(helmet.noCache())
+//Content Filter do que pode ser carregado na pagina
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    styleSrc: ["'self'", 'cdnjs.cloudflare.com', 'code.jquery.com', 'stackpath.bootstrapcdn.com']
+  }
+}))
+
+//Load rateLimit
+const apiLimiter = rateLimit({
+  windowMs: 2 * 60 * 1000, // 2 minutes
+  max: 10, //10 requisiçoes
+  message:
+    "Muitas requisiçoes na pagina tente novamente mais tarde!"
+});
+const loginLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 3, //3 tentativas
+  message:
+    "Excedeu as tentativas de login tente novamente em 5 minutos!"
+});
+app.use("/about/", apiLimiter);
+app.use("/index/", apiLimiter);
+app.use("/users/register", apiLimiter);
+app.use("/users/login", loginLimiter);
 
 // Load routes
 const ideas = require("./routes/ideas");
